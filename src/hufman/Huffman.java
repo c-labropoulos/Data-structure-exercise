@@ -1,6 +1,15 @@
 package hufman;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.PrintWriter;
 import java.util.PriorityQueue;
+
+import huffman.HuffmanTree;
 
 public class Huffman {
     // input is an array of frequencies, indexed by character code
@@ -25,13 +34,15 @@ public class Huffman {
         return trees.poll();
     }
 
-    public static void printCodes(HuffmanTree tree, StringBuffer prefix) {
-        assert tree != null;
+    public static void printCodes(HuffmanTree tree, StringBuffer prefix) throws IOException {
+    	//BufferedWriter bwr = new BufferedWriter(new FileWriter("treecode.txt"));
+    	//PrintWriter out = new PrintWriter("treecode.txt");
+    	assert tree != null;
         if (tree instanceof HuffmanLeaf) {
             HuffmanLeaf leaf = (HuffmanLeaf)tree;
 
             // print out character, frequency, and code for this leaf (which is just the prefix)
-            System.out.println(leaf.value + "\t" + leaf.frequency + "\t" + prefix);
+           System.out.println(leaf.value + "\t" + leaf.frequency + "\t" + prefix);
 
         } else if (tree instanceof HuffmanNode) {
             HuffmanNode node = (HuffmanNode)tree;
@@ -44,8 +55,24 @@ public class Huffman {
             // traverse right
             prefix.append('1');
             printCodes(node.right, prefix);
+          
             prefix.deleteCharAt(prefix.length()-1);
-        }
+        }  
+       
     }
+    public static  HuffmanTree loadTree() throws IOException, ClassNotFoundException
+	{
+    	HuffmanTree tree1;
+		File temp = new File("tree.dat");
+			FileInputStream fis = new FileInputStream("tree.dat");
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			 tree1 = (HuffmanTree) ois.readObject();
+			ois.close();
+			
+			return tree1;
+		
+		
+	}
+    
 
 }

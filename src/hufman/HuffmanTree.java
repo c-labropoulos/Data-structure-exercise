@@ -1,7 +1,7 @@
 package hufman;
 
-
-abstract class HuffmanTree implements Comparable<HuffmanTree> {
+import java.io.Serializable;
+abstract class HuffmanTree implements Comparable<HuffmanTree>,Serializable {
     public final int frequency; // the frequency of this tree
     public HuffmanTree(int freq) { frequency = freq; }
 
@@ -28,4 +28,5 @@ class HuffmanNode extends HuffmanTree {
         left = l;
         right = r;
     }
+    
 }
