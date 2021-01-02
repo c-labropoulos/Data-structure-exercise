@@ -11,6 +11,10 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class HuffmanMain implements Serializable {
 
@@ -27,33 +31,34 @@ public class HuffmanMain implements Serializable {
         HuffmanTree tree = Huffman.buildTree(charFreqs,test2);
         
         HuffmanStoring.StoreTree(tree);
-       // PrintWriter s = null;
-        // print out results
-        //System.out.println("SYMBOL\tFREQ\tHUFFMAN CODE");
-        //Huffman.printCodes(tree, new StringBuffer());
-     //   Huffman.write(tree,s, new StringBuffer());
-      /* OutputStream file = new FileOutputStream( "tree.bin" );
-        OutputStream buffer = new BufferedOutputStream( file );
-        ObjectOutput output = new ObjectOutputStream( buffer );
-
-        output.writeObject(tree);*/
-       // t.saveTree("tree.dat");
-       // HuffmanStoring.DeStoreTree();
+      
         HuffmanTree tree1;
         File temp = new File("tree.dat");
 		FileInputStream fis = new FileInputStream("tree.dat");
 		ObjectInputStream ois = new ObjectInputStream(fis);
 		 try {
+			 PrintWriter writerObj1 =null;
+			 writerObj1 = new PrintWriter(new File("binary.txt"));
 			tree1 = (HuffmanTree) ois.readObject();
 			System.out.println("succefull read");
-			Huffman.printCodes(tree1, new StringBuffer());
-		} catch (ClassNotFoundException | IOException e) {
+		Huffman.printCodes(tree1, new StringBuffer());
+		//	HuffmanStoring.writingFile(tree1, new StringBuffer());
+			System.out.println("<--ROUND 2-->");
+			HuffmanStoring.writeFile(tree1, new StringBuffer());
+			System.out.println("FINITO");
+		 } catch (ClassNotFoundException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		ois.close();
-        
-    }
+	
+		//	System.out.println("<--ROUND 2-->");
+			
+			//System.out.println("FINITO");
+		}
+	
+			
+    
 	
 
 }
